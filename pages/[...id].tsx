@@ -1,0 +1,87 @@
+import type { NextPage } from 'next'
+import { useEffect, useState } from 'react'
+import Head from 'next/head'
+import { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next';
+import { getAllPostIds, getPostData } from '../lib/posts'
+import { Tategaki } from 'tategaki'
+
+export const getStaticPaths: GetStaticPaths = async () => {
+    const paths = await getAllPostIds()
+    console.log(paths[0])
+
+    return {
+        paths,
+        fallback: false
+    }
+}
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+    console.log(params)
+
+    const postData = await getPostData(params.id[3])
+
+    return {
+        props: {
+            postData
+        }
+    }
+}
+
+export default function Post({
+    postData
+}: {
+    postData: {
+        title: string
+        author: string
+        link: string
+        content: string
+        description: string
+    }
+}) {
+
+    useEffect(() => {
+        if (!!document.querySelector('#heading')) return
+        let heading = document.createElement('div')
+        heading.id = 'heading'
+        let h1 = document.createElement('h1')
+        h1.innerHTML = `<a href=${postData.link}>${postData.title}</a>`
+        let author = document.createElement('p')
+        author.classList.add('no-indent')
+        author.innerHTML = postData.author
+        heading.appendChild(h1)
+        heading.appendChild(author)
+
+        let article = document.querySelector('article')
+        if (article === null) return
+        article.insertBefore(heading, article.firstChild)
+
+
+        let tategaki = new Tategaki(article, {
+            imitatePcS: true
+        })
+        tategaki.parse()
+        console.log('test')
+    }, [])
+
+    return <>
+        <Head>
+            <title>{postData.title} – 一天世界</title>
+            <meta property="og:type" content="article" />
+            <meta property="og:title" content={postData.title} />
+            <meta property="og:url" content={postData.link} />
+            <meta property="og:description" content={postData.description} />
+            <meta property="og:site_name" content="一天世界" />
+            <meta property="og:image" content="https://secure.gravatar.com/blavatar/3dd84179782d9f57210943aa1bf5064e?s=200&amp;ts=1662488619" />
+            <meta property="og:image:width" content="200" />
+            <meta property="og:image:height" content="200" />
+            <meta property="og:locale" content="zh_CN" />
+            <meta name="twitter:text:title" content={postData.title} />
+            <meta name="twitter:image" content="https://secure.gravatar.com/blavatar/3dd84179782d9f57210943aa1bf5064e?s=240" />
+            <meta name="twitter:card" content="summary" />
+        </Head>
+        <article dangerouslySetInnerHTML={{ __html: postData.content }}>
+        </article>
+    </>
+}
+
+

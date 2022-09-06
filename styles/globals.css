@@ -1,26 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --foreground-colour: #000a0cf5;
+    --background-colour: #fdfdfc;
+    --a-colour: #CB2E5A;
+    --selection-colour: #CB2E5A32;
+    --side-right-gradient-background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.383) 25%, rgba(255,255,255,0.707) 50%, rgba(255,255,255,0.924) 75%, rgba(255,255,255,1) 100%);
+    --side-left-gradient-background: linear-gradient(270deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.383) 25%, rgba(255,255,255,0.707) 50%, rgba(255,255,255,0.924) 75%, rgba(255,255,255,1) 100%);
+}
+
+@media screen and (prefers-color-scheme: dark) {
+    :root {
+        --foreground-colour: #fffffee3;
+        --background-colour: #181a1b;
+        --a-colour: #e16b8c;
+        --selection-colour: #e16b8c32;
+        --side-right-gradient-background: linear-gradient(90deg, rgba(24,26,27,0) 0%, rgba(24,26,27,0.383) 25%, rgba(24,26,27,0.707) 50%, rgba(24,26,27,0.924) 75%, rgba(24,26,27,1) 100%);
+        --side-left-gradient-background: linear-gradient(270deg, rgba(24,26,27,0) 0%, rgba(24,26,27,0.383) 25%, rgba(24,26,27,0.707) 50%, rgba(24,26,27,0.924) 75%, rgba(24,26,27,1) 100%);
+    }
+}
+
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    writing-mode: vertical-rl;
+    color: var(--foreground-colour);
+    font-family: 'Hiragino Mincho ProN', serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    background-color: var(--background-colour);
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+    color: var(--a-colour);
 }
 
-* {
-  box-sizing: border-box;
+article {
+    margin: 3.334rem;
+    height: 32rem;
+    line-height: 1.667;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
+.cjk-punc {
+    font-family: source-han-serif-tc, serif;
 }
+
+h1 {
+    font-family: source-han-sans-cjk-tc, sans-serif;
+    font-weight: 700;
+}
+
+#heading {
+    margin-left: 5rem;
+}
+
+p, blockquote {
+    text-align: justify;
+    text-indent: 1rem;
+}
+
+blockquote {
+    font-family: Kai, serif;
+
+    margin-top: -16px;
+    border-top: 2px solid var(--foreground-colour);
+    padding-top: 14px;
+}
+
+/* CJK Emphasis  */
+em  {
+    font-style: normal;
+    text-emphasis: '\25AA';
+    -webkit-text-emphasis: '\25AA';
+    /* Would it be nice if offset can be customised */
+                
+}
+
+em.latin, em .latin {
+    font-style: italic;
+    text-emphasis: none;
+    -webkit-text-emphasis: none;          
+}
+
+/* Lists */
+ul { list-style-type: '\25AA\0020'; }
+
+ol {
+    list-style-type: trad-chinese-informal;
+    list-style-position: inside;
+}
+
+ol li {
+    margin: 0;
+    text-indent: 1rem;
+    text-align: justify;
+}
+
+rt {
+    font-size: 0.45rem;
+    
+    ruby-align: center;
+    text-align: center;
+    letter-spacing: 0;
+
+    font-feature-settings: "vpal";
+
+    -webkit-font-smoothing: initial;
+    -moz-osx-font-smoothing: initial;
+    text-rendering: initial;
+}
+
+rt.bopomofo {
+    font-family: BopomofoRuby;
+    text-orientation: upright;
+}
+
+rt.pinyin {
+    font-size: 0.6rem;
+    font-family: 'Crimson Pro', Garamond, Georgia, serif;
+    font-weight: 429;
+
+    position: relative;
+    left: 0.1rem;
+}
+
+hr {
+    border: none;
+    margin: 0;
+}
+
+hr::before {
+    content: "❧";
+    display: block;
+    text-align: center;
+    margin: 0 1.667rem;
+
+    position: relative;
+    left: 0.273rem;
+}
+
+.no-indent {
+    text-indent: 0;
+}
+
+::-moz-selection {
+    background: var(--selection-colour);
+}
+  
+::selection {
+    background: var(--selection-colour);
+}
+
+.tategaki {
+    hanging-punctuation: none;
+}
+
+/* Fix space height  */
+.squeeze-out-space::before, .squeeze-in-space::before {
+    content: "\0020";
+    font: 0.833em Courier;  /* Alternative font. Its U+0020 must be wider than that in CJK font. */
+}
+

@@ -67,6 +67,7 @@ export default function Post({
     return <>
         <Head>
             <title>{`${postData.title} – 一天世界`}</title>
+            <meta name="viewport" content="width=device-width, initial-scale=0.92, viewport-fit=cover" />
             <meta property="og:type" content="article" />
             <meta property="og:title" content={postData.title} />
             <meta property="og:url" content={postData.link} />
@@ -79,9 +80,18 @@ export default function Post({
             <meta name="twitter:text:title" content={postData.title} />
             <meta name="twitter:image" content="https://secure.gravatar.com/blavatar/3dd84179782d9f57210943aa1bf5064e?s=240" />
             <meta name="twitter:card" content="summary" />
+            <meta name="theme-color"
+                  content="#fdfdfc"
+                  media="(prefers-color-scheme: light)" />
+            <meta name="theme-color"
+                  content="#181a1b"
+                  media="(prefers-color-scheme: dark)" />
         </Head>
         <article dangerouslySetInnerHTML={{ __html: postData.content }}>
         </article>
+        
+        <div className="gradient-left"></div>
+        <div className="gradient-right"></div>
     </>
 }
 

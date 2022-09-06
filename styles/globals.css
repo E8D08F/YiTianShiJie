@@ -26,11 +26,29 @@ html,
 body {
     writing-mode: vertical-rl;
     color: var(--foreground-colour);
-    font-family: 'Hiragino Mincho ProN', serif;
+    font-family: source-han-serif-tc, serif;
     font-weight: 400;
     font-style: normal;
     font-size: 18px;
     background-color: var(--background-colour);
+    overscroll-behavior: none;
+    overflow-y: hidden
+}
+
+.gradient-left {
+    width: 0.75rem;
+    height: 100vh;
+    background: var(--side-left-gradient-background);
+    position: fixed;
+    left: 0;
+}
+
+.gradient-right {
+    width: 0.75rem;
+    height: 100vh;
+    background: var(--side-right-gradient-background);
+    position: fixed;
+    right: 0;
 }
 
 a {
@@ -41,6 +59,7 @@ article {
     margin: 3.334rem;
     height: 32rem;
     line-height: 1.667;
+    vertical-align: middle;
 }
 
 .cjk-punc {

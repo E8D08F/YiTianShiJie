@@ -33,7 +33,6 @@ export const getAllPostIds = async () => {
 
 export const getPostData = async (id: string) => {
     const feed = await parser.parseURL('https://blog.yitianshijie.net/feed')
-
     
     const item = feed.items.find(item => {
         if (item.link === undefined) { return false }
@@ -41,7 +40,6 @@ export const getPostData = async (id: string) => {
     })
 
     if (item != undefined) {
-        console.log(item.fullContent)
         return {
             title: item.title,
             author: item.creator,

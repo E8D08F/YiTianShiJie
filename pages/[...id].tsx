@@ -1,13 +1,11 @@
-import type { NextPage } from 'next'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import Head from 'next/head'
-import { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next';
+import { GetStaticProps, GetStaticPaths } from 'next';
 import { getAllPostIds, getPostData } from '../lib/posts'
 import { Tategaki } from 'tategaki'
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const paths = await getAllPostIds()
-    console.log(paths[0])
 
     return {
         paths,
@@ -16,9 +14,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-    console.log(params)
+    let id = ""
+    if (params) {
+        let slugs = params.id as string[]
+        id = slugs[3]
+    }
 
-    const postData = await getPostData(params.id[3])
+    const postData = await getPostData(id)
 
     return {
         props: {
@@ -60,12 +62,11 @@ export default function Post({
             imitatePcS: true
         })
         tategaki.parse()
-        console.log('test')
     }, [])
 
     return <>
         <Head>
-            <title>{postData.title} – 一天世界</title>
+            <title>{`${postData.title} – 一天世界`}</title>
             <meta property="og:type" content="article" />
             <meta property="og:title" content={postData.title} />
             <meta property="og:url" content={postData.link} />

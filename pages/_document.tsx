@@ -14,6 +14,9 @@ class MyDocument extends Document {
         <Html lang="zh-tw">
           <Head>
             <link rel="stylesheet" href="https://unpkg.com/tategaki/assets/tategaki.css" />
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link rel="preconnect" href="https://fonts.gstatic.com" />
+            <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro&display=swap" rel="stylesheet" />
           </Head>
           <body>
             <Main />

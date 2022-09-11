@@ -9,7 +9,7 @@ let parser = new Parser({
 })
 
 export const getAllPostIds = async () => {
-    const feed = await parser.parseURL('https://lukewarmbeast.wordpress.com/feed')
+    const feed = await parser.parseURL('https://blog.yitianshijie.net/feed')
 
     return feed.items.flatMap(item => {
         const re = /blog\.yitianshijie\.net\/(20[0-9]{2})\/([01]\d)\/([0-3]\d)\/([^\/]+)\/?$/
@@ -32,7 +32,7 @@ export const getAllPostIds = async () => {
 }
 
 export const getPostData = async (id: string) => {
-    const feed = await parser.parseURL('https://lukewarmbeast.wordpress.com/feed')
+    const feed = await parser.parseURL('https://blog.yitianshijie.net/feed')
     
     const item = feed.items.find(item => {
         if (item.link === undefined) { return false }

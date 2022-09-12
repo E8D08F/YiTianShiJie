@@ -68,7 +68,7 @@ export default function Post({
     return <>
         <Head>
             <title>{`${postData.title} – 一天世界`}</title>
-            <meta name="viewport" content="width=device-width, initial-scale=0.92, viewport-fit=cover" />
+            <meta name="viewport" content="width=device-width, initial-scale=0.936, viewport-fit=cover" />
             <meta property="og:type" content="article" />
             <meta property="og:title" content={postData.title} />
             <meta property="og:url" content={postData.link} />

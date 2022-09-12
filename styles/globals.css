@@ -43,7 +43,7 @@ body {
     font-size: 18px;
     background-color: var(--background-colour);
     overscroll-behavior: none;
-    overflow-y: hidden
+    overflow-y: hidden;
 }
 
 .gradient-left {
@@ -81,6 +81,8 @@ article {
     line-height: 1.667;
     vertical-align: middle;
     font-size: 1rem;
+    padding-right: calc(env(safe-area-inset-right) - 1.667rem);
+    padding-left: calc(env(safe-area-inset-left) - 1.667rem);
 }
 
 .cjk-punc {
@@ -266,6 +268,67 @@ hr::before {
 
 @media screen and (max-height: 565.3px) {
     article {
-        margin: max(calc((100vh - 28rem) / 2), 2rem);
+        margin: max(calc((100vh - 28rem) / 2), 2rem) max(calc((100vh - 28rem) / 2 - 0.3335rem), 1.6665rem);
+    }
+}
+
+@media screen and (max-height: 512px) {
+    article {
+        margin: 2rem 1.6665rem;
+        height: 27rem;
+    }
+}
+
+@media screen and (max-height: 496px) {
+    article {
+        height: 26rem;
+    }
+}
+
+@media screen and (max-height: 480px) {
+    article {
+        height: 25rem;
+    }
+}
+
+@media screen and (max-height: 464px) {
+    article {
+        height: 24rem;
+    }
+}
+
+@media screen and (max-height: 448px) {
+    article {
+        height: 23rem;
+    }
+}
+
+@media screen and (max-height: 432px) {
+    article {
+        height: 22rem;
+    }
+}
+
+@media screen and (max-height: 416px) {
+    article {
+        height: 21rem;
+    }
+}
+
+@media screen and (max-height: 400px) {
+    article {
+        height: 20rem;
+    }
+}
+
+@media screen and (max-height: 384px) {
+    article {
+        height: 19rem;
+    }
+}
+
+@media screen and (max-height: 368px) {
+    article {
+        height: 18rem;
     }
 }

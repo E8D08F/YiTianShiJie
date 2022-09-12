@@ -85,6 +85,10 @@ article {
     font-family: source-han-serif-tc, serif;
 }
 
+h1 .cjk-punc {
+    font-family: source-han-sans-cjk-tc, sans-serif;
+}
+
 h1 {
     font-family: source-han-sans-cjk-tc, sans-serif;
     font-weight: 700;

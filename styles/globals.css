@@ -108,7 +108,7 @@ p, blockquote {
 }
 
 blockquote {
-    font-family: Kai, serif;
+    font-family: 'AR Kaiti B5 Medium', Kai, serif;
 
     margin-top: calc(-1rem + 2px);
     border-top: 2px solid var(--foreground-colour);

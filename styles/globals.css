@@ -86,7 +86,7 @@ article {
 }
 
 .cjk-punc {
-    font-family: source-han-serif-tc, serif;
+    /*font-family: source-han-serif-tc, serif;*/
 }
 
 h1 .cjk-punc {

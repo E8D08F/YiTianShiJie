@@ -45,7 +45,7 @@ export const getPostData = async (id: string) => {
             author: item.creator,
             link: item.link,
             content: item.fullContent,
-            description: (item.content as string).replace(' [&#8230;]', '⋯⋯')
+            description: (item.content as string).replace('[&#8230;]', '❧')
         }
     }
 

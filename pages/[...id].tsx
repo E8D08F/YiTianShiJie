@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import Head from 'next/head'
+import Script from 'next/script'
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { getAllPostIds, getPostData } from '../lib/posts'
 import { Tategaki } from 'tategaki'
@@ -88,6 +89,7 @@ export default function Post({
                   content="#181a1b"
                   media="(prefers-color-scheme: dark)" />
         </Head>
+        <Script type="text/javascript" src="//typesquare.com/3/tsst/script/zh_tw/typesquare.js?631f3e24d50445ffb32d203eac1e02e5" charSet="utf-8"></Script>
         <article dangerouslySetInnerHTML={{ __html: postData.content }}>
         </article>
         

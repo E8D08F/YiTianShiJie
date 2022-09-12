@@ -32,6 +32,7 @@
     }
 }
 
+
 html,
 body {
     writing-mode: vertical-rl;
@@ -75,10 +76,11 @@ a {
 }
 
 article {
-    margin: 3.334rem;
+    margin: 3.667rem 3.334rem;
     height: 32rem;
     line-height: 1.667;
     vertical-align: middle;
+    font-size: 1rem;
 }
 
 .cjk-punc {
@@ -106,9 +108,9 @@ p, blockquote {
 blockquote {
     font-family: Kai, serif;
 
-    margin-top: -16px;
+    margin-top: calc(-1rem + 2px);
     border-top: 2px solid var(--foreground-colour);
-    padding-top: 14px;
+    padding-top: calc(1rem - 2 * 2px);
 }
 
 /* CJK Emphasis  */
@@ -205,3 +207,65 @@ hr::before {
     font: 0.833em Courier;  /* Alternative font. Its U+0020 must be wider than that in CJK font. */
 }
 
+@media screen and (max-height: 708px) {
+    article {
+        height: 31rem;
+    }
+}
+
+@media screen and (max-height: 690px) {
+    article {
+        height: 30rem;
+    }
+}
+
+@media screen and (max-height: 672px) {
+    article {
+        height: 29rem;
+    }
+}
+
+@media screen and (max-height: 654px) {
+    article {
+        height: 28rem;
+    }
+}
+
+@media screen and (max-height: 636px) {
+    html {
+        font-size: 16px;
+    }
+    article {
+        height: 32rem;
+    }
+}
+
+@media screen and (max-height: 629.3px) {
+    article {
+        height: 31rem;
+    }
+}
+
+@media screen and (max-height: 613.3px) {
+    article {
+        height: 30rem;
+    }
+}
+
+@media screen and (max-height: 597.3px) {
+    article {
+        height: 29rem;
+    }
+}
+
+@media screen and (max-height: 581.3px) {
+    article {
+        height: 28rem;
+    }
+}
+
+@media screen and (max-height: 565.3px) {
+    article {
+        margin: max(calc((100vh - 28rem) / 2), 2rem);
+    }
+}

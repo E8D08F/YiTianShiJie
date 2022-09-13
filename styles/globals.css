@@ -47,7 +47,7 @@ body {
 }
 
 .gradient-left {
-    width: 0.75rem;
+    width: 0.5rem;
     height: 100vh;
     background: var(--side-left-gradient-background);
     position: fixed;
@@ -55,7 +55,7 @@ body {
 }
 
 .gradient-right {
-    width: 0.75rem;
+    width: 0.5rem;
     height: 100vh;
     background: var(--side-right-gradient-background);
     position: fixed;

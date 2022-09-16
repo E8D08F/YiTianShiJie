@@ -209,6 +209,11 @@ hr::before {
     font: 0.833em Courier;  /* Alternative font. Its U+0020 must be wider than that in CJK font. */
 }
 
+.original-post {
+    text-indent: 0;
+    margin-right: 1.667rem;
+}
+
 @media screen and (max-height: 708px) {
     article {
         height: 31rem;

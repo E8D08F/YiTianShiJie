@@ -59,6 +59,14 @@ export default function Post({
         if (article === null) return
         article.insertBefore(heading, article.firstChild)
 
+        Array.from(article.children)
+            .filter(div => div.tagName === 'P')
+            .forEach(para => {
+                if (para.innerHTML.trim().match(/读竖排版）$/)) {
+                    para.classList.add('original-post')
+                    para.innerHTML = `（<a href=${postData.link}>原载</a>《一天世界》博客）`
+                }
+            })
 
         let tategaki = new Tategaki(article, {
             imitatePcS: true

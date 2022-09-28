@@ -19,7 +19,6 @@ with open('public/backup.json') as fin:
                 "title": entry.title,
                 "author": entry.author,
                 "id": entry.id,
-                "slug": entry.link.replace('https://blog.yitianshijie.net/', ''),
                 "description": entry.description,
                 "content": entry.content[0].value
             })

@@ -19,6 +19,10 @@ interface Post {
     content: string
 }
 
+interface Slug {
+    params: { id: string[] }
+}
+
 export const getAllPostIds = async () => {
     let remoteIDs = new Set<string>()
     const feed = await parser.parseURL('https://blog.yitianshijie.net/feed')
@@ -39,7 +43,7 @@ export const getAllPostIds = async () => {
         }
 
         return []
-    })
+    }) as Slug[]
 
     const response = await fetch(`${baseURL}/backup.json`)
     const backupPosts = await response.json() as Post[]
@@ -53,7 +57,7 @@ export const getAllPostIds = async () => {
                 }
             }
         }
-    })
+    }) as Slug[]
 
     const combinedPosts = remotePosts.concat(localPosts)
 

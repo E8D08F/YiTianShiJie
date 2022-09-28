@@ -78,7 +78,7 @@ export const getPostData = async (id: string) => {
             author: item.creator,
             link: item.link,
             content: item.fullContent,
-            description: (item.content as string).replace('[&#8230;]', '…')
+            description: (item.content as string).replace(' [&#8230;]', '…')
         }
     } else {
         const response = await fetch(`${baseURL}/backup.json`)
@@ -91,7 +91,7 @@ export const getPostData = async (id: string) => {
                 author: found.author,
                 link: 'https://blog.yitianshijie.net/' + found.slug,
                 content: found.content,
-                description: found.description.replace('[&#8230;]', '…')
+                description: found.description.replace(' [&#8230;]', '…')
             }
         }
     }

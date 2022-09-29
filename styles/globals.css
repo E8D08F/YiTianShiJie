@@ -75,6 +75,7 @@ a {
     color: var(--a-colour);
 }
 
+
 article {
     margin: 3.667rem 3.334rem;
     height: 32rem;
@@ -89,11 +90,7 @@ article {
     font-family: source-han-serif-tc, serif;
 }
 
-h1 .cjk-punc {
-    font-family: source-han-sans-cjk-tc, sans-serif;
-}
-
-h1 {
+h1, h1 .latin, h1 .cjk-punc {
     font-family: source-han-sans-cjk-tc, sans-serif;
     font-weight: 700;
 }

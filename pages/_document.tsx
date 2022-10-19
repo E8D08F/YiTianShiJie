@@ -16,7 +16,7 @@ class MyDocument extends Document {
             <link rel="stylesheet" href="https://unpkg.com/tategaki/assets/tategaki.css" />
             <link rel="preconnect" href="https://fonts.googleapis.com" />
             <link rel="preconnect" href="https://fonts.gstatic.com" />
-            <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,345;1,345&display=swap" rel="stylesheet" />
+            <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,345;1,345&family=Signika+Negative:wght@669&display=swap" rel="stylesheet" />
           </Head>
           <body>
             <Main />

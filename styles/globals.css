@@ -52,15 +52,16 @@ body {
     top: 0;
     bottom: 0;
     width: 100vw;
+
+    overflow-x: auto;
+    overscroll-behavior: none;
+
     mask: 
         linear-gradient(to right, transparent, black 0.5rem) left, 
         linear-gradient(to left, transparent, black 0.5rem) right;
     mask-repeat: no-repeat;
     mask-composite: intersect;
     -webkit-mask-composite: source-in;
-
-    overflow-x: auto;
-    overscroll-behavior: none;
 }
 
 article {
@@ -93,9 +94,15 @@ article {
     margin-left: 5rem;
 }
 
-h1, h1 .latin, h1 .cjk-punc {
+h1, h1 .cjk-punc {
     font-family: 'Source Han Sans TC', source-han-sans-cjk-tc, sans-serif;
     font-weight: 700;
+}
+
+h1 .latin {
+    font-family: 'Signika Negative', sans-serif;
+    font-weight: 669;
+    left: 0.036rem;
 }
 
 p:not(:first-of-type):not(.original-post) {

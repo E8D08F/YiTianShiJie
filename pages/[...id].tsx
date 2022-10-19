@@ -98,13 +98,10 @@ export default function Post({
                   media="(prefers-color-scheme: dark)" />
         </Head>
         <Script type="text/javascript" src="//typesquare.com/3/tsst/script/zh_tw/typesquare.js?631f3e24d50445ffb32d203eac1e02e5&fadein=-1" charSet="utf-8"></Script>
-        <div className="tategaki-container-1">
-		<div className="tategaki-container-2 overflow-x-auto">
-			<article dangerouslySetInnerHTML={{ __html: postData.content }}>
-			</article>
-		</div>
-	</div>
-        
+        <div className="side-mask">
+            <article dangerouslySetInnerHTML={{ __html: postData.content }}>
+            </article>
+        </div>
     </>
 }
 

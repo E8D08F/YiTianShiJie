@@ -37,10 +37,10 @@
 html,
 body {
     writing-mode: vertical-rl;
+    font-size: 18px;
 }
 
 body {
-    font-size: 18px;
     font-family: 'Source Han Serif TC', source-han-serif-tc, serif;
     font-weight: 400;
     font-style: normal;

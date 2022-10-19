@@ -2,9 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @font-face {
     font-family: Kai;
-    src: local("Kaiti TC Regular"), local(STKaiTi-TC-Regular), local("Kaiti TC"), local("Kaiti SC"), local(STKaiti), local(BiauKai), local("標楷體"), local(DFKaiShu-SB-Estd-BF), local(Kaiti), local(DFKai-SB)
+    src: local("Kaiti TC Regular"), local(STKaiTi-TC-Regular), local("Kaiti TC"), local("Kaiti SC"), local(STKaiti), local(BiauKai), local("標楷體"), local(DFKaiShu-SB-Estd-BF), local(Kaiti), local(DFKai-SB);
 }
 
 @font-face {
@@ -36,71 +37,73 @@
 html,
 body {
     writing-mode: vertical-rl;
-    color: var(--foreground-colour);
-    font-family: source-han-serif-tc, serif;
+}
+
+body {
+    font-size: 18px;
+    font-family: 'Source Han Serif TC', source-han-serif-tc, serif;
     font-weight: 400;
     font-style: normal;
-    font-size: 18px;
+    color: var(--foreground-colour);
+
     background-color: var(--background-colour);
+    
     overscroll-behavior: none;
     overflow-y: hidden;
 }
 
-.gradient-left {
-    width: 0.5rem;
+.tategaki-container-1 {
     height: 100vh;
-    background: var(--side-left-gradient-background);
-    position: fixed;
-    left: 0;
+    width: 100vw;
+    mask-image: linear-gradient(to right, transparent, black 0.5rem);
 }
 
-.gradient-right {
-    width: 0.5rem;
+.tategaki-container-2 {
     height: 100vh;
-    background: var(--side-right-gradient-background);
-    position: fixed;
-    right: 0;
+    width: 100vw;
+    mask-image: linear-gradient(to left, transparent, black 0.5rem);
+}
+
+article {
+    margin: 3.667rem 3.334rem;
+    height: 32rem;
+
+    font-size: 1rem;
+    line-height: 1.667;
+    text-align: justify;
+
+    /* For notches */
+    padding-right: calc(env(safe-area-inset-right) - 1.667rem);
+    padding-left: calc(env(safe-area-inset-left) - 1.667rem);
 }
 
 .latin {
     font-family: 'Crimson Pro', serif;
-    font-weight: 429;
+    /* Can be ignored */
+    font-weight: 345;
 
     position: relative;
     left: 0.083rem;
 }
 
-
-a {
-    color: var(--a-colour);
-}
-
-
-article {
-    margin: 3.667rem 3.334rem;
-    height: 32rem;
-    line-height: 1.667;
-    vertical-align: middle;
-    font-size: 1rem;
-    padding-right: calc(env(safe-area-inset-right) - 1.667rem);
-    padding-left: calc(env(safe-area-inset-left) - 1.667rem);
-}
-
 .cjk-punc {
-    font-family: source-han-serif-tc, serif;
-}
-
-h1, h1 .latin, h1 .cjk-punc {
-    font-family: source-han-sans-cjk-tc, sans-serif;
-    font-weight: 700;
+    font-family: 'Source Han Serif TC', source-han-serif-tc, serif;
 }
 
 #heading {
     margin-left: 5rem;
 }
 
-p, blockquote {
-    text-align: justify;
+h1, h1 .latin, h1 .cjk-punc {
+    font-family: 'Source Han Sans TC', source-han-sans-cjk-tc, sans-serif;
+    font-weight: 700;
+}
+
+p:not(:first-of-type):not(.original-post) {
+    text-indent: 1rem;
+}
+
+blockquote p:first-of-type {
     text-indent: 1rem;
 }
 
@@ -108,13 +111,14 @@ blockquote {
     font-family: 'AR Zhongkai GB18030 Medium', Kai, serif;
 }
 
+a { color: var(--a-colour); }
+
 /* CJK Emphasis  */
 em  {
     font-style: normal;
     text-emphasis: '\25AA';
     -webkit-text-emphasis: '\25AA';
     /* Would it be nice if offset can be customised */
-                
 }
 
 em.latin, em .latin {
@@ -158,8 +162,7 @@ rt.bopomofo {
 
 rt.pinyin {
     font-size: 0.6rem;
-    font-family: 'Crimson Pro', Garamond, Georgia, serif;
-    font-weight: 429;
+    font-family: 'Crimson Pro', serif;
 
     position: relative;
     left: 0.1rem;
@@ -184,27 +187,16 @@ hr::before {
     text-indent: 0;
 }
 
+.original-post {
+    margin-right: 1.667rem;
+}
+
 ::-moz-selection {
     background: var(--selection-colour);
 }
   
 ::selection {
     background: var(--selection-colour);
-}
-
-.tategaki {
-    hanging-punctuation: none;
-}
-
-/* Fix space height  */
-.squeeze-out-space::before, .squeeze-in-space::before {
-    content: "\0020";
-    font: 0.833em Courier;  /* Alternative font. Its U+0020 must be wider than that in CJK font. */
-}
-
-.original-post {
-    text-indent: 0;
-    margin-right: 1.667rem;
 }
 
 @media screen and (max-height: 708px) {
@@ -331,14 +323,13 @@ hr::before {
     }
 }
 
-.tategaki-container-1 {
-	height: 100vh;
-	width: 100vw;
-	mask-image: linear-gradient(to right, transparent, black 0.5rem);
+/* Override Tategaki default  */
+.tategaki {
+    hanging-punctuation: none;
 }
 
-.tategaki-container-2 {
-	height: 100vh;
-	width: 100vw;
-	mask-image: linear-gradient(to left, transparent, black 0.5rem);
+/* Fix space height  */
+.squeeze-out-space::before, .squeeze-in-space::before {
+    content: "\0020";
+    font: 0.833em Courier;  /* Alternative font. Its U+0020 must be wider than that in CJK font. */
 }

@@ -4,7 +4,6 @@ import Script from 'next/script'
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { getAllPostIds, getPostData } from '../lib/posts'
 import { Tategaki } from 'tategaki'
-import { detect } from 'detect-browser'
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const paths = await getAllPostIds()
@@ -69,10 +68,8 @@ export default function Post({
                 }
             })
 
-        const browser = detect()
         let tategaki = new Tategaki(article, {
-            imitatePcS: true,
-            shouldAdjustOrphanLine: (browser && browser.name) !== 'firefox'
+            imitatePcS: true
         })
         tategaki.parse()
     }, [])

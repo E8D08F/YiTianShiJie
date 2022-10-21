@@ -94,7 +94,7 @@ article {
     margin-left: 5rem;
 }
 
-h1, h1 .cjk-punc {
+h1, h1 .cjk-punc, h1 .tcy, h1 .tcy-single {
     font-family: 'Source Han Sans TC', source-han-sans-cjk-tc, sans-serif;
     font-weight: 700;
 }

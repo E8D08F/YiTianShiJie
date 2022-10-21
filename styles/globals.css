@@ -86,7 +86,7 @@ article {
     left: 0.083rem;
 }
 
-.cjk-punc {
+.cjk-punc, .tcy, .tcy-single {
     font-family: 'Source Han Serif TC', source-han-serif-tc, serif;
 }
 

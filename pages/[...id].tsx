@@ -69,7 +69,8 @@ export default function Post({
             })
 
         let tategaki = new Tategaki(article, {
-            imitatePcS: true
+            imitatePcS: true,
+            shouldAdjustOrphanLine: true
         })
         tategaki.parse()
     }, [])

@@ -39,29 +39,18 @@ export default function Post({
 }) {
 
     useEffect(() => {
-        if (!!document.querySelector('#heading') || notFound) return
-        let heading = document.createElement('div')
-        heading.id = 'heading'
-        let h1 = document.createElement('h1')
-        h1.innerHTML = `<a href=${link}>${title}</a>`
-        let authorParagraph = document.createElement('p')
-        authorParagraph.classList.add('no-indent')
-        authorParagraph.innerHTML = author
-        heading.appendChild(h1)
-        heading.appendChild(authorParagraph)
+        if (!!document.querySelector('.tategaita') || notFound) return
 
         let article = document.querySelector('article')
         if (article === null) return
-        article.insertBefore(heading, article.firstChild)
 
-        Array.from(article.children)
-            .filter(div => div.tagName === 'P')
-            .forEach(para => {
-                if (para.innerHTML.trim().match(/读竖排版）$/)) {
-                    para.classList.add('original-post')
-                    para.innerHTML = `（<a href=${link}>原载</a>《一天世界》博客）`
-                }
-            })
+        let paragraphs = Array.from(article.querySelectorAll('p'))
+
+        let para = paragraphs[paragraphs.length-1]
+        if (para.innerHTML.trim().match(/读竖排版）$/)) {
+            para.classList.add('original-post')
+            para.innerHTML = `（<a href=${link}>原载</a>《一天世界》博客）`
+        }
 
         const browser = detect()
         let tategaki = new Tategaki(article, {
@@ -69,6 +58,7 @@ export default function Post({
             shouldAdjustOrphanLine: browser ? browser.name !== 'firefox' : false
         })
         tategaki.parse()
+        article.classList.add('tategaita')
     }, [ notFound, author, link, title ])
         
     if (notFound) { return <DefaultErrorPage statusCode={404} /> }
@@ -96,10 +86,17 @@ export default function Post({
                   content="#181a1b"
                   media="(prefers-color-scheme: dark)" />
         </Head>
-        <Script type="text/javascript" src="//typesquare.com/3/tsst/script/zh_tw/typesquare.js?631f3e24d50445ffb32d203eac1e02e5&fadein=-1" charSet="utf-8"></Script>
-        <div className="side-mask">
-            <article dangerouslySetInnerHTML={{ __html: content }}>
-            </article>
+        <Script type="text/javascript" src="//typesquare.com/3/tsst/script/zh_tw/typesquare.js?631f3e24d50445ffb32d203eac1e02e5" charSet="utf-8"></Script>
+        <div className="side-mask" dangerouslySetInnerHTML={{ __html: `
+            <article>
+                <div id="heading">
+                    <h1><a href="${link}">${title}</a></h1>
+                    <p class="no-indent">${author}</p>
+                </div>
+
+                ${content}
+            </article>`
+        }}>
         </div>
     </>
 }

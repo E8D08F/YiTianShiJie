@@ -11,7 +11,7 @@ class MyDocument extends Document {
 
     render() {
       return (
-        <Html lang="zh-tw">
+        <Html lang="zh-Hant">
           <Head>
             <link rel="stylesheet" href="https://unpkg.com/tategaki/assets/tategaki.css" />
             <link rel="preconnect" href="https://fonts.googleapis.com" />

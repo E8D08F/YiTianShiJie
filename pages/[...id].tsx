@@ -86,7 +86,7 @@ export default function Post({
                   content="#181a1b"
                   media="(prefers-color-scheme: dark)" />
         </Head>
-        <Script type="text/javascript" src="//typesquare.com/3/tsst/script/zh_tw/typesquare.js?631f3e24d50445ffb32d203eac1e02e5" charSet="utf-8"></Script>
+        <Script type="text/javascript" src="//typesquare.com/3/tsst/script/zh_tw/typesquare.js?631f3e24d50445ffb32d203eac1e02e5&fadein=-1" charSet="utf-8"></Script>
         <div className="side-mask" dangerouslySetInnerHTML={{ __html: `
             <article>
                 <div id="heading">

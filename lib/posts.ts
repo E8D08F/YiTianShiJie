@@ -1,14 +1,7 @@
 import Parser from 'rss-parser'
+import fetch from 'node-fetch'
 
 const baseURL = process.env.BASE_URL
-
-let parser = new Parser({
-    customFields: {
-        item: [
-            [ 'content:encoded', 'fullContent' ]
-        ]
-    }
-})
 
 interface Post {
     title: string
@@ -23,21 +16,25 @@ interface Slug {
     params: { id: string[] }
 }
 
+let rssParser = new Parser({
+    customFields: {
+        item: [ [ 'content:encoded', 'fullContent' ] ]
+    }
+})
+
 export const getAllPostIds = async () => {
     let remoteIDs = new Set<string>()
-    const feed = await parser.parseURL('https://blog.yitianshijie.net/feed')
+    const feed = await rssParser.parseURL('https://blog.yitianshijie.net/feed')
     const remotePosts = feed.items.flatMap(item => {
         if (!item.guid) { return }
         remoteIDs.add(item.guid)
 
         const re = /blog\.yitianshijie\.net\/(20[0-9]{2})\/([01]\d)\/([0-3]\d)\/([^\/]+)\/?$/
-        if (item.link != undefined) {
+        if (item.link) {
             const matched = item.link.match(re)
-            if (matched != undefined) {
+            if (matched) {
                 return [{
-                    params: {
-                        id: [ matched[1], matched[2], matched[3], matched[4] ]
-                    }
+                    params: { id: [ ...matched.slice(1, 5) ] }
                 }]
             }
         }
@@ -46,20 +43,18 @@ export const getAllPostIds = async () => {
     }) as Slug[]
 
     const response = await fetch(`${baseURL}/backup.json`)
-    const backupPosts = await response.json() as Post[]
-    const localPosts = backupPosts.filter(post => !remoteIDs.has(post.id)).map(post => {
+    const savedPosts = await response.json() as Post[]
+    const requiredPosts = savedPosts.filter(post => !remoteIDs.has(post.id)).map(post => {
         const re = /(20[0-9]{2})\/([01]\d)\/([0-3]\d)\/([^\/]+)\/?$/
         const matched = post.slug.match(re)
-        if (matched != undefined) {
+        if (matched) {
             return {
-                params: {
-                    id: [ matched[1], matched[2], matched[3], matched[4] ]
-                }
+                params: { id: [ ...matched.slice(1, 5) ] }
             }
         }
     }) as Slug[]
 
-    const combinedPosts = remotePosts.concat(localPosts)
+    const combinedPosts = remotePosts.concat(requiredPosts)
 
     return combinedPosts
 }
@@ -71,7 +66,7 @@ const getStandardID = (id: string) => {
 }
 
 export const getPostData = async (rawID: string) => {
-    const feed = await parser.parseURL('https://blog.yitianshijie.net/feed')
+    const feed = await rssParser.parseURL('https://blog.yitianshijie.net/feed')
     const id = getStandardID(rawID)
     
     const item = feed.items.find(item => {
@@ -90,8 +85,8 @@ export const getPostData = async (rawID: string) => {
     }
 
     const response = await fetch(`${baseURL}/backup.json`)
-    const backupPosts = await response.json() as Post[]
-    const post = backupPosts.find(post => post.slug.endsWith(id + '/'))
+    const savedPosts = await response.json() as Post[]
+    const post = savedPosts.find(post => post.slug.endsWith(id + '/'))
 
     if (post) {
         return {

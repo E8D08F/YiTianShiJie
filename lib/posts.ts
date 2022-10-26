@@ -64,15 +64,22 @@ export const getAllPostIds = async () => {
     return combinedPosts
 }
 
-export const getPostData = async (id: string) => {
+const getStandardID = (id: string) => {
+    const re = /(20[0-9]{2})\/([01]\d)\/([0-3]\d)\/([^\/]+)$/
+    const matched = id.match(re)
+    return matched ? matched[0] : null
+}
+
+export const getPostData = async (rawID: string) => {
     const feed = await parser.parseURL('https://blog.yitianshijie.net/feed')
+    const id = getStandardID(rawID)
     
     const item = feed.items.find(item => {
-        if (item.link === undefined) { return false }
-        return item.link.includes(id)
+        if (!item.link) { return false }
+        return item.link.endsWith(id + '/')
     })
 
-    if (item != undefined) {
+    if (item) {
         return {
             title: item.title,
             author: item.creator,
@@ -80,23 +87,21 @@ export const getPostData = async (id: string) => {
             content: item.fullContent,
             description: (item.content as string).replace(' [&#8230;]', '…')
         }
-    } else {
-        const response = await fetch(`${baseURL}/backup.json`)
-        const backupPosts = await response.json() as Post[]
-        const found =backupPosts.find(post => post.slug.includes(id))
+    }
 
-        if (found != undefined) {
-            return {
-                title: found.title,
-                author: found.author,
-                link: 'https://blog.yitianshijie.net/' + found.slug,
-                content: found.content,
-                description: found.description.replace(' [&#8230;]', '…')
-            }
+    const response = await fetch(`${baseURL}/backup.json`)
+    const backupPosts = await response.json() as Post[]
+    const post = backupPosts.find(post => post.slug.endsWith(id + '/'))
+
+    if (post) {
+        return {
+            title: post.title,
+            author: post.author,
+            link: 'https://blog.yitianshijie.net/' + post.slug,
+            content: post.content,
+            description: post.description.replace(' [&#8230;]', '…')
         }
     }
 
-    return {
-        content: '<div>Not Found</div>'
-    }
+    return null
 }

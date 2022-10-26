@@ -75,7 +75,7 @@ export default function Post({
             shouldAdjustOrphanLine: browser ? browser.name !== 'firefox' : false
         })
         tategaki.parse()
-    }, [])
+    }, [ postData.author, postData.link, postData.title ])
 
     return <>
         <Head>

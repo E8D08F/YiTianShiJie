@@ -1,67 +1,28 @@
-import { useEffect } from 'react'
+import { GetStaticProps, GetStaticPaths } from 'next';
 import Head from 'next/head'
 import Script from 'next/script'
-import { GetStaticProps, GetStaticPaths } from 'next';
-import { getAllPostIds, getPostData } from '../lib/posts'
-import { Tategaki } from 'tategaki'
-import { detect } from 'detect-browser'
 import DefaultErrorPage from 'next/error'
+import { getAllPostIds, getPostData, PostData } from '../lib/posts'
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const paths = await getAllPostIds()
 
-    return {
-        paths,
-        fallback: 'blocking'
-    }
+    return { paths, fallback: 'blocking' }
 }
-
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     const postData = params ?
         await getPostData((params.id as string[]).join('/')) : null
 
     return {
-        props: { notFound: !postData, ...postData },
+        props: { postData },
         revalidate: 10
     }
 }
 
-export default function Post({
-    notFound, title, author, link, content, description
-}: {
-    notFound: boolean
-    title: string
-    author: string
-    link: string
-    content: string
-    description: string
-}) {
-
-    useEffect(() => {
-        if (!!document.querySelector('.tategaita') || notFound) return
-
-        let article = document.querySelector('article')
-        if (article === null) return
-
-        let paragraphs = Array.from(article.querySelectorAll('p'))
-
-        let para = paragraphs[paragraphs.length-1]
-        if (para.innerHTML.trim().match(/读竖排版）$/)) {
-            para.classList.add('original-post')
-            para.innerHTML = `（<a href=${link}>原载</a>《一天世界》博客）`
-        }
-
-        const browser = detect()
-        let tategaki = new Tategaki(article, {
-            imitatePcS: true,
-            shouldAdjustOrphanLine: browser ? browser.name !== 'firefox' : false
-        })
-        tategaki.parse()
-        article.classList.add('tategaita')
-    }, [ notFound, author, link, title ])
-        
-    if (notFound) { return <DefaultErrorPage statusCode={404} /> }
+export default function Post({ postData }: { postData?: PostData }) {
+    if (!postData) { return <DefaultErrorPage statusCode={404} /> }
+    const { title, content, description, link } = postData
 
     return <>
         <Head>
@@ -87,17 +48,7 @@ export default function Post({
                   media="(prefers-color-scheme: dark)" />
         </Head>
         <Script type="text/javascript" src="//typesquare.com/3/tsst/script/zh_tw/typesquare.js?631f3e24d50445ffb32d203eac1e02e5&fadein=-1" charSet="utf-8"></Script>
-        <div className="side-mask" dangerouslySetInnerHTML={{ __html: `
-            <article>
-                <div id="heading">
-                    <h1><a href="${link}">${title}</a></h1>
-                    <p class="no-indent">${author}</p>
-                </div>
-
-                ${content}
-            </article>`
-        }}>
-        </div>
+        <div className="side-mask" dangerouslySetInnerHTML={{ __html: content }}></div>
     </>
 }
 

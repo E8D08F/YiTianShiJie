@@ -1,15 +1,19 @@
 import Parser from 'rss-parser'
 import fetch from 'node-fetch'
+import { parseHTML } from 'linkedom'
+import { Tategaki } from 'tategaki'
+import { detect } from 'detect-browser'
 
 const baseURL = process.env.BASE_URL
 
-interface Post {
+export interface PostData {
     title: string
     author: string
-    id: string
-    slug: string
-    description: string
+    id?: string
+    slug?: string
     content: string
+    description?: string
+    link?: string
 }
 
 interface Slug {
@@ -43,10 +47,10 @@ export const getAllPostIds = async () => {
     }) as Slug[]
 
     const response = await fetch(`${baseURL}/backup.json`)
-    const savedPosts = await response.json() as Post[]
-    const requiredPosts = savedPosts.filter(post => !remoteIDs.has(post.id)).map(post => {
+    const savedPosts = await response.json() as PostData[]
+    const requiredPosts = savedPosts.filter(post => post.id && !remoteIDs.has(post.id)).map(post => {
         const re = /(20[0-9]{2})\/([01]\d)\/([0-3]\d)\/([^\/]+)\/?$/
-        const matched = post.slug.match(re)
+        const matched = post.slug!.match(re)
         if (matched) {
             return {
                 params: { id: [ ...matched.slice(1, 5) ] }
@@ -65,6 +69,41 @@ const getStandardID = (id: string) => {
     return matched ? matched[0] : null
 }
 
+const getProcessedHTML = ({ link, title, author, content }: PostData) => {
+    const { window: { document } } = parseHTML(`
+    <!DOCTYPE html>
+    <html>
+    <body>
+        <article>
+            <div id="heading">
+                <h1><a href="${link}">${title}</a></h1>
+                <p class="no-indent">${author}</p>
+            </div>
+        
+            ${content}
+        </article>
+    </body>
+    </html>`)
+
+    let paragraphs = Array.from(document.body.querySelectorAll('p'))
+
+    let para = paragraphs[paragraphs.length-1]
+    if (para.innerHTML.trim().match(/读竖排版）$/)) {
+        para.classList.add('original-post')
+        para.innerHTML = `（<a href=${link}>原载</a>《一天世界》博客）`
+    }
+
+    const browser = detect()
+    let article = document.body.querySelector('article')!
+    let tategaki = new Tategaki(article, {
+        imitatePcS: true,
+        shouldAdjustOrphanLine: browser ? browser.name !== 'firefox' : false
+    }, document)
+    tategaki.parse()
+
+    return document.body.innerHTML
+}
+
 export const getPostData = async (rawID: string) => {
     const feed = await rssParser.parseURL('https://blog.yitianshijie.net/feed')
     const id = getStandardID(rawID)
@@ -74,27 +113,36 @@ export const getPostData = async (rawID: string) => {
         return item.link.endsWith(id + '/')
     })
 
-    if (item) {
+    if (item && item.title && item.creator) {
+        const content = getProcessedHTML({
+            link: item.link,
+            title: item.title,
+            author: item.creator,
+            content: item.fullContent,
+        })
         return {
             title: item.title,
             author: item.creator,
+            content,
+            description: (item.content as string).replace(' [&#8230;]', '…'),
             link: item.link,
-            content: item.fullContent,
-            description: (item.content as string).replace(' [&#8230;]', '…')
         }
     }
 
     const response = await fetch(`${baseURL}/backup.json`)
-    const savedPosts = await response.json() as Post[]
-    const post = savedPosts.find(post => post.slug.endsWith(id + '/'))
+    const savedPosts = await response.json() as PostData[]
+    const post = savedPosts.find(post => post.slug!.endsWith(id + '/'))
 
     if (post) {
+        const link = 'https://blog.yitianshijie.net/' + post.slug
+        const content = getProcessedHTML({ link, ...post })
+
         return {
             title: post.title,
             author: post.author,
-            link: 'https://blog.yitianshijie.net/' + post.slug,
-            content: post.content,
-            description: post.description.replace(' [&#8230;]', '…')
+            content,
+            description: post.description!.replace(' [&#8230;]', '…'),
+            link
         }
     }
 

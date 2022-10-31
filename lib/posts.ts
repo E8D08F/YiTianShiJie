@@ -91,6 +91,9 @@ const getProcessedHTML = ({ link, title, author, content }: PostData) => {
     if (para.innerHTML.trim().match(/读竖排版）$/)) {
         para.classList.add('original-post')
         para.innerHTML = `（<a href=${link}>原载</a>《一天世界》博客）`
+    } else if (para.innerHTML.trim().match(/讀豎排版）$/)) {
+        para.classList.add('original-post')
+        para.innerHTML = `（<a href=${link}>原載</a>《一天世界》博客）`
     }
 
     const browser = detect()

@@ -2,7 +2,6 @@ import Parser from 'rss-parser'
 import fetch from 'node-fetch'
 import { parseHTML } from 'linkedom'
 import { Tategaki } from 'tategaki'
-import { detect } from 'detect-browser'
 
 const baseURL = process.env.BASE_URL
 
@@ -96,11 +95,10 @@ const getProcessedHTML = ({ link, title, author, content }: PostData) => {
         para.innerHTML = `（<a href=${link}>原載</a>《一天世界》博客）`
     }
 
-    const browser = detect()
     let article = document.body.querySelector('article')!
     let tategaki = new Tategaki(article, {
         imitatePcS: true,
-        shouldAdjustOrphanLine: browser ? browser.name !== 'firefox' : false
+        // Browser detection is of no use in generating HTML 
     }, document)
     tategaki.parse()
 

@@ -59,8 +59,8 @@ body {
     overscroll-behavior: none;
 
     mask: 
-        linear-gradient(to right, transparent, black 0.21rem) left, 
-        linear-gradient(to left, transparent, black 0.21rem) right;
+        linear-gradient(to right, rgba(0,0,0,0.12), black 0.27rem) left, 
+        linear-gradient(to left, rgba(0,0,0,0.12), black 0.27rem) right;
     mask-repeat: no-repeat;
     mask-composite: intersect;
     -webkit-mask-composite: source-in;

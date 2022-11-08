@@ -106,9 +106,33 @@ const getProcessedHTML = ({ link, title, author, content }: PostData) => {
     return document.body.innerHTML
 }
 
+const retrieveDataDirectlyFromWebsite = async (id: string) => {
+    const link = `https://blog.yitianshijie.net/${id}`
+    const r_2 = await fetch(link)
+    const rawHTML = r_2.ok ? await r_2.text() : null
+
+    if (!rawHTML) { return null }
+
+    const { window: { document } } = parseHTML(rawHTML)
+    const article = document.querySelector('article')
+    if (!article) { return null }
+    const title = article.querySelector('h1.entry-title')!.innerHTML
+    const author = article.querySelector('.byline .author a')!.innerHTML
+    const content = article.querySelector('.entry-content')!.innerHTML
+    
+    return {
+        title,
+        author,
+        content: getProcessedHTML({ link, title, author, content }),
+        link
+    }
+}
+
 export const getPostData = async (rawID: string) => {
     const feed = await rssParser.parseURL('https://blog.yitianshijie.net/feed')
     const id = getStandardID(rawID)
+
+    if (!id) { return null }
     
     const item = feed.items.find(item => {
         if (!item.link) { return false }
@@ -148,5 +172,5 @@ export const getPostData = async (rawID: string) => {
         }
     }
 
-    return null
+    return retrieveDataDirectlyFromWebsite(id)
 }

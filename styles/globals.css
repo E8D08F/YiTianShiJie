@@ -14,6 +14,8 @@
 }
 
 :root {
+    --font-size: 18px;
+    --height: 32rem;
     --foreground-colour: #21272e;
     --background-colour: #fdfdfc;
     --a-colour: #CB2E5A;
@@ -33,7 +35,7 @@
 html,
 body {
     writing-mode: vertical-rl;
-    font-size: 18px;
+    font-size: var(--font-size);
 }
 
 body {
@@ -66,7 +68,7 @@ body {
 
 article {
     margin: 3.667rem 3.334rem;
-    height: 32rem;
+    height: var(--height);
 
     font-size: 1rem;
     line-height: 1.667;
@@ -115,6 +117,19 @@ blockquote p:first-of-type {
 
 blockquote {
     font-family: 'AR Zhongkai GB18030 Medium', Kai, serif;
+}
+
+img {
+    height: var(--height);
+}
+
+
+figure {
+    margin: 0 1.667rem 0;
+}
+
+figcaption {
+    opacity: 0.87;
 }
 
 a { color: var(--a-colour); }
@@ -189,6 +204,10 @@ hr::before {
     left: 0.273rem;
 }
 
+.indent {
+    text-indent: var(--font-size);
+}
+
 .no-indent {
     text-indent: 0;
 }
@@ -206,59 +225,57 @@ hr::before {
 }
 
 @media screen and (max-height: 708px) {
-    article {
-        height: 31rem;
+    :root {
+        --height: 31rem;
     }
 }
 
 @media screen and (max-height: 690px) {
-    article {
-        height: 30rem;
+    :root {
+        --height: 30rem;
     }
 }
 
 @media screen and (max-height: 672px) {
-    article {
-        height: 29rem;
+    :root {
+        --height: 29rem;
     }
 }
 
 @media screen and (max-height: 654px) {
-    article {
-        height: 28rem;
+    :root {
+        --height: 28rem;
     }
 }
 
 @media screen and (max-height: 636px) {
-    html {
-        font-size: 16px;
-    }
-    article {
-        height: 32rem;
+    :root {
+        --height: 32rem;
+        --font-size: 16px;
     }
 }
 
 @media screen and (max-height: 629.3px) {
-    article {
-        height: 31rem;
+    :root {
+        --height: 31rem;
     }
 }
 
 @media screen and (max-height: 613.3px) {
-    article {
-        height: 30rem;
+    :root {
+        --height: 30rem;
     }
 }
 
 @media screen and (max-height: 597.3px) {
-    article {
-        height: 29rem;
+    :root {
+        --height: 29rem;
     }
 }
 
 @media screen and (max-height: 581.3px) {
-    article {
-        height: 28rem;
+    :root {
+        --height: 28rem;
     }
 }
 
@@ -269,63 +286,65 @@ hr::before {
 }
 
 @media screen and (max-height: 512px) {
+    :root {
+        --height: 27rem;
+    }
     article {
         margin: 2rem 1.6665rem;
-        height: 27rem;
     }
 }
 
 @media screen and (max-height: 496px) {
-    article {
-        height: 26rem;
+    :root {
+        --height: 26rem;
     }
 }
 
 @media screen and (max-height: 480px) {
-    article {
-        height: 25rem;
+    :root {
+        --height: 25rem;
     }
 }
 
 @media screen and (max-height: 464px) {
-    article {
-        height: 24rem;
+    :root {
+        --height: 24rem;
     }
 }
 
 @media screen and (max-height: 448px) {
-    article {
-        height: 23rem;
+    :root {
+        --height: 23rem;
     }
 }
 
 @media screen and (max-height: 432px) {
-    article {
-        height: 22rem;
+    :root {
+        --height: 22rem;
     }
 }
 
 @media screen and (max-height: 416px) {
-    article {
-        height: 21rem;
+    :root {
+        --height: 21rem;
     }
 }
 
 @media screen and (max-height: 400px) {
-    article {
-        height: 20rem;
+    :root {
+        --height: 20rem;
     }
 }
 
 @media screen and (max-height: 384px) {
-    article {
-        height: 19rem;
+    :root {
+        --height: 19rem;
     }
 }
 
 @media screen and (max-height: 368px) {
-    article {
-        height: 18rem;
+    :root {
+        --height: 18rem;
     }
 }
 

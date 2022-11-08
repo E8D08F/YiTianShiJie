@@ -2,6 +2,7 @@ import Parser from 'rss-parser'
 import fetch from 'node-fetch'
 import { parseHTML } from 'linkedom'
 import { Tategaki } from 'tategaki'
+import { convert } from 'html-to-text'
 
 const baseURL = process.env.BASE_URL
 
@@ -117,7 +118,7 @@ const retrieveDataDirectlyFromWebsite = async (id: string) => {
     const { window: { document } } = parseHTML(rawHTML)
     const article = document.querySelector('article')
     if (!article) { return null }
-    const title = article.querySelector('h1.entry-title')!.innerHTML
+    const title = convert(article.querySelector('h1.entry-title')!.innerHTML)
     const author = article.querySelector('.byline .author a')!.innerHTML
     const content = article.querySelector('.entry-content')!.innerHTML
     

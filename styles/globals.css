@@ -85,7 +85,7 @@ article {
     font-weight: 345;
 
     position: relative;
-    left: 0.093rem;
+    left: 0.088rem;
 }
 
 .cjk-punc, .tcy, .tcy-single {
@@ -200,6 +200,7 @@ hr::before {
     text-align: center;
     margin: 0 1.667rem;
 
+    height: var(--height);
     position: relative;
     left: 0.273rem;
 }
@@ -250,8 +251,8 @@ hr::before {
 
 @media screen and (max-height: 636px) {
     :root {
-        --height: 32rem;
         --font-size: 16px;
+        --height: 32rem;
     }
 }
 

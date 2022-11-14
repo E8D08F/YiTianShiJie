@@ -1,0 +1,129 @@
+:root {
+    --font-size: 18px;
+    --line-em: 32;
+    --line-length: calc(var(--line-em) * 1rem);
+    --line-multiplier: 1.667;
+    --line-march: calc(var(--line-multiplier) * 1rem);
+    --line-across: calc((var(--line-multiplier) * 2 - 1) * 1rem);
+    --line-side: calc((var(--line-multiplier) - 1) / 2 * 1rem);
+}
+
+@font-face {
+    font-family: Kai;
+    src: local("Kaiti TC Regular"), local(STKaiTi-TC-Regular), local("Kaiti TC"), local("Kaiti SC"), local(STKaiti), local(BiauKai), local("標楷體"), local(DFKaiShu-SB-Estd-BF), local(Kaiti), local(DFKai-SB);
+}
+
+@font-face {
+    font-family: BopomofoRuby;
+    src: url(https://raw.githubusercontent.com/cmex-30/Bopomofo_on_Web/master/font/BopomofoRuby1909-v1-Regular.ttf);
+}
+
+@media screen and (max-height: 660.024px) {
+    :root {
+        --line-em: 31;
+    }
+}
+
+@media screen and (max-height: 642.024px) {
+    :root {
+        --line-em: 30;
+    }
+}
+
+@media screen and (max-height: 624.024px) {
+    :root {
+        --line-em: 29;
+    }
+}
+
+@media screen and (max-height: 606.024px) {
+    :root {
+        --line-em: 28;
+    }
+}
+
+@media screen and (max-height: 586.688px) {
+    :root {
+        --font-size: 16px;
+        --line-em: 31;
+    }
+}
+
+@media screen and (max-height: 570.688px) {
+    :root {
+        --line-em: 30;
+    }
+}
+
+@media screen and (max-height: 554.688px) {
+    :root {
+        --line-em: 29;
+    }
+}
+
+@media screen and (max-height: 538.688px) {
+    :root {
+        --line-em: 28;
+    }
+}
+
+@media screen and (max-height: 522.688px) {
+    :root {
+        --line-em: 27;
+    }
+}
+
+@media screen and (max-height: 506.688px) {
+    :root {
+        --line-em: 26;
+    }
+}
+
+@media screen and (max-height: 490.688px) {
+    :root {
+        --line-em: 25;
+    }
+}
+
+@media screen and (max-height: 474.688px) {
+    :root {
+        --line-em: 24;
+    }
+}
+
+@media screen and (max-height: 458.688px) {
+    :root {
+        --line-em: 23;
+    }
+}
+
+@media screen and (max-height: 442.688px) {
+    :root {
+        --line-em: 22;
+    }
+}
+
+@media screen and (max-height: 426.688px) {
+    :root {
+        --line-em: 21;
+    }
+}
+
+@media screen and (max-height: 410.688px) {
+    :root {
+        --line-em: 20;
+    }
+}
+
+@media screen and (max-height: 394.688px) {
+    :root {
+        --line-em: 19;
+    }
+}
+
+@media screen and (max-height: 378.688px) {
+    :root {
+        --line-em: 18;
+    }
+}
+

@@ -1,21 +1,10 @@
+@import 'typography.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
-@font-face {
-    font-family: Kai;
-    src: local("Kaiti TC Regular"), local(STKaiTi-TC-Regular), local("Kaiti TC"), local("Kaiti SC"), local(STKaiti), local(BiauKai), local("標楷體"), local(DFKaiShu-SB-Estd-BF), local(Kaiti), local(DFKai-SB);
-}
-
-@font-face {
-    font-family: BopomofoRuby;
-    src: url(https://raw.githubusercontent.com/cmex-30/Bopomofo_on_Web/master/font/BopomofoRuby1909-v1-Regular.ttf);
-}
-
 :root {
-    --font-size: 18px;
-    --height: 32rem;
     --foreground-colour: #21272e;
     --background-colour: #fdfdfc;
     --a-colour: #CB2E5A;
@@ -43,7 +32,6 @@ body {
     font-weight: 400;
     font-style: normal;
     color: var(--foreground-colour);
-
     background-color: var(--background-colour);
     
     overscroll-behavior: none;
@@ -67,16 +55,16 @@ body {
 }
 
 article {
-    margin: 3.667rem 3.334rem;
-    height: var(--height);
+    margin: var(--line-across) calc(var(--line-across) - var(--line-side));
+    height: var(--line-length);
 
     font-size: 1rem;
-    line-height: 1.667;
+    line-height: var(--line-multiplier);
     text-align: justify;
 
     /* For notches */
-    padding-right: calc(env(safe-area-inset-right) - 1.667rem);
-    padding-left: calc(env(safe-area-inset-left) - 1.667rem);
+    padding-right: calc(env(safe-area-inset-right) - var(--line-march));
+    padding-left: calc(env(safe-area-inset-left) - var(--line-march));
 }
 
 .latin {
@@ -93,7 +81,7 @@ article {
 }
 
 #heading {
-    margin-left: 5rem;
+    margin-left: calc(3 * var(--line-march));
 }
 
 h1, h1 .cjk-punc, h1 .tcy, h1 .tcy-single {
@@ -120,12 +108,12 @@ blockquote {
 }
 
 img {
-    height: var(--height);
+    height: var(--line-length);
 }
 
 
 figure {
-    margin: 0 1.667rem 0;
+    margin: 0 var(--line-march) 0;
 }
 
 figcaption {
@@ -198,9 +186,9 @@ hr::before {
     content: "❧";
     display: block;
     text-align: center;
-    margin: 0 1.667rem;
+    margin: 0 var(--line-march);
 
-    height: var(--height);
+    height: var(--line-length);
     position: relative;
     left: 0.273rem;
 }
@@ -214,7 +202,7 @@ hr::before {
 }
 
 .original-post {
-    margin-right: 1.667rem;
+    margin-right: var(--line-march);
 }
 
 ::-moz-selection {
@@ -223,130 +211,6 @@ hr::before {
   
 ::selection {
     background: var(--selection-colour);
-}
-
-@media screen and (max-height: 708px) {
-    :root {
-        --height: 31rem;
-    }
-}
-
-@media screen and (max-height: 690px) {
-    :root {
-        --height: 30rem;
-    }
-}
-
-@media screen and (max-height: 672px) {
-    :root {
-        --height: 29rem;
-    }
-}
-
-@media screen and (max-height: 654px) {
-    :root {
-        --height: 28rem;
-    }
-}
-
-@media screen and (max-height: 636px) {
-    :root {
-        --font-size: 16px;
-        --height: 32rem;
-    }
-}
-
-@media screen and (max-height: 629.3px) {
-    :root {
-        --height: 31rem;
-    }
-}
-
-@media screen and (max-height: 613.3px) {
-    :root {
-        --height: 30rem;
-    }
-}
-
-@media screen and (max-height: 597.3px) {
-    :root {
-        --height: 29rem;
-    }
-}
-
-@media screen and (max-height: 581.3px) {
-    :root {
-        --height: 28rem;
-    }
-}
-
-@media screen and (max-height: 565.3px) {
-    article {
-        margin: max(calc((100vh - 28rem) / 2), 2rem) max(calc((100vh - 28rem) / 2 - 0.3335rem), 1.6665rem);
-    }
-}
-
-@media screen and (max-height: 512px) {
-    :root {
-        --height: 27rem;
-    }
-    article {
-        margin: 2rem 1.6665rem;
-    }
-}
-
-@media screen and (max-height: 496px) {
-    :root {
-        --height: 26rem;
-    }
-}
-
-@media screen and (max-height: 480px) {
-    :root {
-        --height: 25rem;
-    }
-}
-
-@media screen and (max-height: 464px) {
-    :root {
-        --height: 24rem;
-    }
-}
-
-@media screen and (max-height: 448px) {
-    :root {
-        --height: 23rem;
-    }
-}
-
-@media screen and (max-height: 432px) {
-    :root {
-        --height: 22rem;
-    }
-}
-
-@media screen and (max-height: 416px) {
-    :root {
-        --height: 21rem;
-    }
-}
-
-@media screen and (max-height: 400px) {
-    :root {
-        --height: 20rem;
-    }
-}
-
-@media screen and (max-height: 384px) {
-    :root {
-        --height: 19rem;
-    }
-}
-
-@media screen and (max-height: 368px) {
-    :root {
-        --height: 18rem;
-    }
 }
 
 /* Override Tategaki default  */

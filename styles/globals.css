@@ -109,6 +109,9 @@ blockquote {
 
 img {
     height: var(--line-length);
+    max-width: calc(100vw - 2rem);
+    object-fit: contain;
+    object-position: center top;
 }
 
 

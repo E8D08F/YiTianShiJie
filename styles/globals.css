@@ -140,7 +140,13 @@ em.latin, em .latin {
 }
 
 /* Lists */
-ul { list-style-type: '\25AA\0020'; }
+ul {
+    list-style-type: disc;
+}
+
+ul li::marker {
+    color: var(--a-colour);
+}
 
 ol {
     list-style-type: trad-chinese-informal;

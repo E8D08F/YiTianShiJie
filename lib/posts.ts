@@ -100,7 +100,7 @@ const getProcessedHTML = ({ link, title, author, content }: PostData) => {
     let tategaki = new Tategaki(article, {
         imitatePcS: true,
         shouldAdjustOrphanLine: true,
-        shouldRemoveStyle: true
+        // shouldRemoveStyle: true
         // Browser detection is of no use in generating HTML 
     }, document)
     tategaki.parse()

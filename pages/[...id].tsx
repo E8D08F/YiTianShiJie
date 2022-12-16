@@ -36,7 +36,7 @@ export default function Post({ postData }: { postData?: PostData }) {
             <meta property="og:image" content="https://secure.gravatar.com/blavatar/3dd84179782d9f57210943aa1bf5064e?s=200&amp;ts=1662488619" />
             <meta property="og:image:width" content="200" />
             <meta property="og:image:height" content="200" />
-            <meta property="og:locale" content="zh_CN" />
+            <meta property="og:locale" content="zh_HK" />
             <meta name="twitter:text:title" content={title} />
             <meta name="twitter:image" content="https://secure.gravatar.com/blavatar/3dd84179782d9f57210943aa1bf5064e?s=240" />
             <meta name="twitter:card" content="summary" />

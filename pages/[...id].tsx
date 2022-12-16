@@ -26,7 +26,7 @@ export default function Post({ postData }: { postData?: PostData }) {
 
     return <>
         <Head>
-            <title>{`${title} – 一天世界`}</title>
+            <title>{`${title === '' ? '' : title + ' – '}一天世界`}</title>
             <meta name="viewport" content="width=device-width, initial-scale=0.936, viewport-fit=cover" />
             <meta property="og:type" content="article" />
             <meta property="og:title" content={title} />

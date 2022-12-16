@@ -49,20 +49,46 @@ export const getAllPostIds = async () => {
     return posts
 }
 
-const getStandardID = (id: string) => {
+const getStandardID = (id: string, seperated: boolean=false) => {
     const re = /(20[0-9]{2})\/([01]\d)\/([0-3]\d)\/([^\/]+)$/
     const matched = id.match(re)
-    return matched ? matched[0] : null
+    return matched ? (seperated ? matched : matched[0]) : null
+}
+
+const getChunghwanDate = (year: string, month: number, day: number) => {
+    const chunghwanNumbers = [
+        [ '〇', '一', '二', '三', '四', '五', '六', '七', '八', '九' ],
+        [ '', '十', '廿', '卅' ]
+    ]
+
+    const twoDigitsNumber = (x: number) => 
+        chunghwanNumbers[1][Math.floor(x / 10)] + 
+        chunghwanNumbers[0][x % 10] 
+
+    let date = Array.from(year).map(ch => chunghwanNumbers[0][parseInt(ch)]).join('') + '年'
+    date += twoDigitsNumber(month) + '月'
+    date += twoDigitsNumber(day) + '日'
+    return date
 }
 
 const getProcessedHTML = ({ link, title, author, content }: PostData) => {
+    let chunghwanDate: string | null = null
+    if (title === '') {
+        const ids = getStandardID(link!, true)!
+        chunghwanDate = getChunghwanDate(
+            ids[1],
+            parseInt(ids[2]),
+            parseInt(ids[3])
+        )
+    }
+
     const { window: { document } } = parseHTML(`
     <!DOCTYPE html>
     <html>
     <body>
         <article>
             <div id="heading">
-                <h1><a href="${link}">${title}</a></h1>
+                <h1><a href="${link}">${chunghwanDate ? chunghwanDate : title}</a></h1>
                 <p class="no-indent">${author}</p>
             </div>
         

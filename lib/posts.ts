@@ -106,13 +106,19 @@ const retrieveDataDirectlyFromWebsite = async (id: string) => {
     if (!article) { return null }
     const title = convert(article.querySelector('h1.entry-title')!.innerHTML)
     const author = article.querySelector('.byline .author a')!.innerHTML
-    const content = article.querySelector('.entry-content')!.innerHTML
-    
+    const contentElement = article.querySelector('.entry-content')! as HTMLElement
+    const content = contentElement.innerHTML
+
+
+    const descriptionRaw = contentElement.innerText.trim().replaceAll('\n', ' ')
+    const description = descriptionRaw.slice(0, Math.min(55, descriptionRaw.length)) + '…'
+
     return {
         title,
         author,
         content: getProcessedHTML({ link, title, author, content }),
-        link
+        description,
+        link,
     }
 }
 

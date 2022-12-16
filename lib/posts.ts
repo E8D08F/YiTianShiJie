@@ -150,7 +150,7 @@ const retrieveDataDirectlyFromWebsite = async (id: string) => {
 
 export const getPostData = async (rawID: string) => {
     const feed = await rssParser.parseURL('https://blog.yitianshijie.net/feed')
-    const id = getStandardID(rawID)
+    const id = getStandardID(rawID) as string
 
     if (!id) { return null }
     

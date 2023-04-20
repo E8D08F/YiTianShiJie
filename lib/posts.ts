@@ -63,7 +63,7 @@ const getChunghwanDate = (year: string, month: number, day: number) => {
 
     const twoDigitsNumber = (x: number) => 
         chunghwanNumbers[1][Math.floor(x / 10)] + 
-        chunghwanNumbers[0][x % 10] 
+        (x % 10 === 0 ? '' : chunghwanNumbers[0][x % 10])
 
     let date = Array.from(year).map(ch => chunghwanNumbers[0][parseInt(ch)]).join('') + '年'
     date += twoDigitsNumber(month) + '月'

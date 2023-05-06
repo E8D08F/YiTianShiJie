@@ -4,8 +4,6 @@ import { parseHTML } from 'linkedom'
 import { Tategaki } from 'tategaki'
 import { convert } from 'html-to-text'
 
-const baseURL = process.env.BASE_URL
-
 export interface PostData {
     title: string
     author: string
@@ -99,6 +97,15 @@ const getProcessedHTML = ({ link, title, author, content }: PostData) => {
 
     let paragraphs = Array.from(document.body.querySelectorAll('p'))
 
+    // Consider `<br>` as a seperator of paragraphs
+    // Turn those paragraphs into multiple `<p>`s
+    let quotations = Array.from(document.body.getElementsByTagName('blockquote'))
+    quotations.forEach(quotation => {
+        Array.from(quotation.getElementsByTagName('p')).forEach(p => {
+            p.outerHTML = p.outerHTML.replace(/<br>\s*/g, '</p><p>')
+        })
+    })
+
     let para = paragraphs[paragraphs.length-1]
     if (para.innerHTML.trim().match(/读竖排版）$/)) {
         para.classList.add('original-post')
@@ -111,7 +118,7 @@ const getProcessedHTML = ({ link, title, author, content }: PostData) => {
     let article = document.body.querySelector('article')!
     let tategaki = new Tategaki(article, {
         imitatePcS: true,
-        shouldAdjustOrphanLine: true,
+        shouldAdjustOrphanLine: true
         // shouldRemoveStyle: true
         // Browser detection is of no use in generating HTML 
     }, document)

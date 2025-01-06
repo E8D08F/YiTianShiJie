@@ -33,10 +33,24 @@ export const generateMetadata = async ({ params }: {
       title,
       description,
       url: link,
+      siteName: "一天世界",
+      images: [
+        {
+          url: "https://secure.gravatar.com/blavatar/3dd84179782d9f57210943aa1bf5064e?s=200",
+          width: 200,
+          height: 200,
+        },
+      ],
+      locale: "zh_HK",
+      type: "article",
     },
     twitter: {
       title,
       description,
+      card: "summary",
+      images: {
+        url: "https://secure.gravatar.com/blavatar/3dd84179782d9f57210943aa1bf5064e?s=240",
+      }
     }
   }
 }

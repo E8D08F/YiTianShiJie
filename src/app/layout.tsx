@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from "next"
+import type { Viewport } from "next"
 import "./globals.sass"
 
 
@@ -17,27 +17,6 @@ export const viewport: Viewport = {
       color: "#181a1b",
     },
   ]
-}
-
-export const metadata: Metadata = {
-  openGraph: {
-    siteName: "一天世界",
-    images: [
-      {
-        url: "https://secure.gravatar.com/blavatar/3dd84179782d9f57210943aa1bf5064e?s=200",
-        width: 200,
-        height: 200,
-      },
-    ],
-    locale: "zh_HK",
-    type: "article",
-  },
-  twitter: {  // TODO: Check availability after acquisition of Twitter
-    card: "summary",
-    images: {
-      url: "https://secure.gravatar.com/blavatar/3dd84179782d9f57210943aa1bf5064e?s=240",
-    }
-  }
 }
 
 const RootLayout = ({

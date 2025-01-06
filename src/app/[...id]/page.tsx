@@ -1,6 +1,7 @@
 import { getAllPostIds, getPostData } from "../posts"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
+import { Analytics } from "@vercel/analytics/react"
 
 
 // Incremental Static Regeneration
@@ -50,6 +51,8 @@ const Page = async ({ params }: {
   if (!postData) notFound()
 
   return <>
+    <Analytics />
+
     <div className="side-mask"
       dangerouslySetInnerHTML={{ __html: postData.content }}
     ></div>

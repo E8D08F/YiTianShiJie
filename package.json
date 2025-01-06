@@ -12,6 +12,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@vercel/analytics": "^1.4.1",
     "html-to-text": "^8.2.1",
     "linkedom": "^0.14.19",
     "next": "^15.1.3",

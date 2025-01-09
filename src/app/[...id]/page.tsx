@@ -2,6 +2,7 @@ import { getAllPostIds, getPostData } from "../posts"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 
 // Incremental Static Regeneration
@@ -66,6 +67,7 @@ const Page = async ({ params }: {
 
   return <>
     <Analytics />
+    <SpeedInsights />
 
     <div className="side-mask"
       dangerouslySetInnerHTML={{ __html: postData.content }}

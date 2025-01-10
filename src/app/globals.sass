@@ -77,7 +77,7 @@ article
   font-weight: 330
 
   position: relative
-  left: 0.088rem
+  left: 0.08rem
 
 .tcy
   font-family: 'Hiragino Mincho ProN', serif
@@ -129,6 +129,19 @@ em.latin, em .latin
   font-style: italic
   text-emphasis: none
   -webkit-text-emphasis: none
+
+strong, b
+  font-weight: 700
+
+// FIXME: Temporary styling for sans-serif (see blockquote rule above)
+blockquote
+  strong, b
+    font-weight: 536
+
+strong, b
+  &.latin, & .latin
+    font-weight: 587
+
 
 ul
   list-style-type: disc

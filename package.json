@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@vercel/analytics": "^1.4.1",
+    "@vercel/sdk": "^1.2.2",
     "@vercel/speed-insights": "^1.1.0",
     "html-to-text": "^8.2.1",
     "linkedom": "^0.14.19",

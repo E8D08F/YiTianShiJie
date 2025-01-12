@@ -3,6 +3,7 @@ import fetch from 'node-fetch'
 import { parseHTML } from 'linkedom'
 import { Tategaki } from 'tategaki'
 import { convert } from 'html-to-text'
+import Sitemapper from 'sitemapper'
 
 export interface PostData {
     title: string
@@ -24,27 +25,24 @@ let rssParser = new Parser({
     }
 })
 
-export const getAllPostIds = async () => {
-    let remoteIDs = new Set<string>()
-    const feed = await rssParser.parseURL('https://blog.yitianshijie.net/feed')
-    const posts = feed.items.flatMap(item => {
-        if (!item.guid) { return }
-        remoteIDs.add(item.guid)
+const sitemap = new Sitemapper({
+  url: "https://blog.yitianshijie.net/sitemap.xml",
+})
+const POST_LINK = /blog\.yitianshijie\.net\/(20[0-9]{2})\/([01]\d)\/([0-3]\d)\/([^\/]+)\/?$/
+export const getAllPostIds = async (): Promise<Slug[]> => {
+  try {
+    const { sites } = await sitemap.fetch()
+    return sites.sort().reverse().flatMap(link => {
+      const matches = link.match(POST_LINK)
+      if (!matches) return []
 
-        const re = /blog\.yitianshijie\.net\/(20[0-9]{2})\/([01]\d)\/([0-3]\d)\/([^\/]+)\/?$/
-        if (item.link) {
-            const matched = item.link.match(re)
-            if (matched) {
-                return [{
-                    params: { id: [ ...matched.slice(1, 5) ] }
-                }]
-            }
-        }
+      return [{
+        params: { id: [ ...matches.slice(1, 5) ] }
+      }]
+    })
+  } catch (error) { console.error(error) }
 
-        return []
-    }) as Slug[]
-
-    return posts
+  return []
 }
 
 const getStandardID = (id: string, seperated: boolean=false) => {

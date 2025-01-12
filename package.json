@@ -21,6 +21,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "rss-parser": "^3.13.0",
+    "sitemapper": "^3.2.20",
     "tategaki": "^1.4.3"
   },
   "devDependencies": {

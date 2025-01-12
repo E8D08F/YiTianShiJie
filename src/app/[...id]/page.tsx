@@ -6,14 +6,14 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 
 
 // Incremental Static Regeneration
-export const revalidate = 60
-export const dynamicParams = true
+// MARK: Default `revalidate` to false, allowing resource cached indefinitely
+// export const revalidate = 600
 
 type Params = { id: string[] }  // `path/to/page` -> `[ 'path', 'to', 'page' ]`
 export const generateStaticParams = async (): Promise<Params[]> => {
   const indices = await getAllPostIds()
 
-  return indices.map(path => ({
+  return indices.slice(0, 30).map(path => ({
     id: path.params.id
   }))
 }

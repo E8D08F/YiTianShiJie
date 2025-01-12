@@ -3,4 +3,5 @@ User-agent: Google-Extended
 User-agent: GPTBot
 User-agent: ChatGPT-User
 User-agent: Omgilibot
+User-agent: SemrushBot
 Disallow: /

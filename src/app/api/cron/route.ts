@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import { Vercel } from "@vercel/sdk"
 
 
@@ -7,12 +7,12 @@ const vercel = new Vercel({
 })
 
 const PUBLICATION_DATE = /<news:publication_date>([^<]+)<\/news:publication_date>/
-export const GET = async (req: Request) => {
+export const GET = async (req: NextRequest) => {
   try {
-    if (req.headers.get("Authorization") !== `Bearer ${process.env["BEARER_TOKEN"]}`)
-      return NextResponse.json({
-        error: "Unauthorised",
-      }, { status: 401 })
+    if (req.headers.get("authorization") !== `Bearer ${process.env["CRON_SECRET"]}`)
+      return new Response('Unauthorised', {
+        status: 401,
+      })
 
     const publication = await fetch("https://blog.yitianshijie.net/news-sitemap.xml")
       .then(fetched => fetched.text())

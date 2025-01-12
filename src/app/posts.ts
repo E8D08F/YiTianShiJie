@@ -15,8 +15,11 @@ export interface PostData {
     link?: string
 }
 
-interface Slug {
-    params: { id: string[] }
+export type Params = {
+  year: string,
+  month: string,
+  day: string,
+  slug: string,
 }
 
 let rssParser = new Parser({
@@ -29,7 +32,7 @@ const sitemap = new Sitemapper({
   url: "https://blog.yitianshijie.net/sitemap.xml",
 })
 const POST_LINK = /blog\.yitianshijie\.net\/(20[0-9]{2})\/([01]\d)\/([0-3]\d)\/([^\/]+)\/?$/
-export const getAllPostIds = async (): Promise<Slug[]> => {
+export const getAllPostIds = async (): Promise<Params[]> => {
   try {
     const { sites } = await sitemap.fetch()
     return sites.sort().reverse().flatMap(link => {
@@ -37,7 +40,10 @@ export const getAllPostIds = async (): Promise<Slug[]> => {
       if (!matches) return []
 
       return [{
-        params: { id: [ ...matches.slice(1, 5) ] }
+        year:  matches[1],
+        month: matches[2],
+        day:   matches[3],
+        slug:  matches[4],
       }]
     })
   } catch (error) { console.error(error) }
@@ -95,7 +101,7 @@ const getProcessedHTML = ({ link, title, author, content }: PostData) => {
 
     let paragraphs = Array.from(document.body.querySelectorAll('p'))
 
-    // Consider `<br>` as a seperator of paragraphs
+    // Consider `<br>` as a separator of paragraphs
     // Turn those paragraphs into multiple `<p>`s
     let quotations = Array.from(document.body.getElementsByTagName('blockquote'))
     quotations.forEach(quotation => {
@@ -108,7 +114,7 @@ const getProcessedHTML = ({ link, title, author, content }: PostData) => {
     if (para.innerHTML.trim().match(/读竖排版）$/)) {
         para.classList.add('original-post')
         para.innerHTML = `（<a href=${link}>原载</a>《一天世界》博客）`
-    } else if (para.innerHTML.trim().match(/讀(豎|竪)排版）$/)) {
+    } else if (para.innerHTML.trim().match(/讀([豎竪])排版）$/)) {
         para.classList.add('original-post')
         para.innerHTML = `（<a href=${link}>原載</a>《一天世界》博客）`
     }
@@ -153,32 +159,33 @@ const retrieveDataDirectlyFromWebsite = async (id: string) => {
     }
 }
 
-export const getPostData = async (rawID: string) => {
-    const feed = await rssParser.parseURL('https://blog.yitianshijie.net/feed')
-    const id = getStandardID(rawID) as string
+export const getPostData = async ({ year, month, day, slug }: Params) => {
+  const rawID = `${year}/${month}/${day}/${slug}`
+  const feed = await rssParser.parseURL('https://blog.yitianshijie.net/feed')
+  const id = getStandardID(rawID) as string
 
-    if (!id) { return null }
-    
-    const item = feed.items.find(item => {
-        if (!item.link) { return false }
-        return item.link.endsWith(id + '/')
+  if (!id) { return null }
+
+  const item = feed.items.find(item => {
+    if (!item.link) { return false }
+    return item.link.endsWith(id + '/')
+  })
+
+  if (item && item.title && item.creator) {
+    const content = getProcessedHTML({
+      link: item.link,
+      title: item.title,
+      author: item.creator,
+      content: item.fullContent,
     })
-
-    if (item && item.title && item.creator) {
-        const content = getProcessedHTML({
-            link: item.link,
-            title: item.title,
-            author: item.creator,
-            content: item.fullContent,
-        })
-        return {
-            title: item.title,
-            author: item.creator,
-            content,
-            description: (item.content as string).replace(' [&#8230;]', '…'),
-            link: item.link,
-        }
+    return {
+      title: item.title,
+      author: item.creator,
+      content,
+      description: (item.content as string).replace(' [&#8230;]', '…'),
+      link: item.link,
     }
+  }
 
-    return retrieveDataDirectlyFromWebsite(id)
+  return retrieveDataDirectlyFromWebsite(id)
 }

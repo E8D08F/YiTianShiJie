@@ -1,4 +1,5 @@
-import { getAllPostIds, getPostData } from "../posts"
+import { getAllPostIds, getPostData } from "@/app/posts"
+import type { Params } from "@/app/posts"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { Analytics } from "@vercel/analytics/react"
@@ -9,22 +10,16 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 // MARK: Default `revalidate` to false, allowing resource cached indefinitely
 // export const revalidate = 600
 
-type Params = { id: string[] }  // `path/to/page` -> `[ 'path', 'to', 'page' ]`
 export const generateStaticParams = async (): Promise<Params[]> => {
   const indices = await getAllPostIds()
 
-  return indices.slice(0, 30).map(path => ({
-    id: path.params.id
-  }))
+  return indices.slice(0, 30)
 }
 
 export const generateMetadata = async ({ params }: {
   params: Promise<Params>
 }): Promise<Metadata> => {
-  const { id } = await params
-  if (!id) notFound()
-
-  const postData = await getPostData(id.join('/'))
+  const postData = await getPostData(await params)
   if (!postData) notFound()
   const { title, description, link } = postData
 
@@ -59,10 +54,7 @@ export const generateMetadata = async ({ params }: {
 const Page = async ({ params }: {
   params: Promise<Params>
 }) => {
-  const { id } = await params
-  if (!id) notFound()
-
-  const postData = await getPostData(id.join('/'))
+  const postData = await getPostData(await params)
   if (!postData) notFound()
 
   return <>

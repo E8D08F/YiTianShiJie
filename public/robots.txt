@@ -1,0 +1,6 @@
+User-agent: FacebookBot
+User-agent: Google-Extended
+User-agent: GPTBot
+User-agent: ChatGPT-User
+User-agent: Omgilibot
+Disallow: /

@@ -5,4 +5,5 @@ User-agent: ChatGPT-User
 User-agent: Omgilibot
 User-agent: SemrushBot
 User-agent: PetalBot
+User-agent: ImagesiftBot
 Disallow: /

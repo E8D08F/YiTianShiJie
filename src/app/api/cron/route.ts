@@ -14,7 +14,10 @@ export const GET = async (req: NextRequest) => {
         status: 401,
       })
 
-    const publication = await fetch("https://blog.yitianshijie.net/news-sitemap.xml")
+    const publication = await fetch(
+      "https://blog.yitianshijie.net/news-sitemap.xml", {
+        cache: "no-store",
+      })
       .then(fetched => fetched.text())
       .then(raw => {
         return raw.match(PUBLICATION_DATE)

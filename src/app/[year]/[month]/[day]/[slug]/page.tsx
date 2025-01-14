@@ -13,7 +13,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 export const generateStaticParams = async (): Promise<Params[]> => {
   const indices = await getAllPostIds()
 
-  return indices.slice(0, 30)
+  return indices.slice(0, 10)
 }
 
 export const generateMetadata = async ({ params }: {

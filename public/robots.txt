@@ -24,3 +24,6 @@ Disallow: /
 
 User-agent: ImagesiftBot
 Disallow: /
+
+User-agent: Buck
+Disallow: /

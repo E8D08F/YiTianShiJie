@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server"
 import { Vercel } from "@vercel/sdk"
 
 
+export const dynamic = 'force-dynamic'
+
 const vercel = new Vercel({
   bearerToken: process.env["BEARER_TOKEN"],
 })

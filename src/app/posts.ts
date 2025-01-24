@@ -63,8 +63,8 @@ const getChunghwanDate = (year: string, month: number, day: number) => {
         [ '', '十', '廿', '卅' ]
     ]
 
-    const twoDigitsNumber = (x: number) => 
-        chunghwanNumbers[1][Math.floor(x / 10)] + 
+    const twoDigitsNumber = (x: number) =>
+        chunghwanNumbers[1][Math.floor(x / 10)] +
         (x % 10 === 0 ? '' : chunghwanNumbers[0][x % 10])
 
     let date = Array.from(year).map(ch => chunghwanNumbers[0][parseInt(ch)]).join('') + '年'
@@ -93,7 +93,7 @@ const getProcessedHTML = ({ link, title, author, content }: PostData) => {
                 <h1><a href="${link}">${chunghwanDate ? chunghwanDate : title}</a></h1>
                 <p class="no-indent">${author}</p>
             </div>
-        
+
             ${content}
         </article>
     </body>
@@ -110,21 +110,22 @@ const getProcessedHTML = ({ link, title, author, content }: PostData) => {
         })
     })
 
+    const article = document.body.querySelector('article')!
     let para = paragraphs[paragraphs.length-1]
-    if (para.innerHTML.trim().match(/读竖排版）$/)) {
-        para.classList.add('original-post')
-        para.innerHTML = `（<a href=${link}>原载</a>《一天世界》博客）`
-    } else if (para.innerHTML.trim().match(/讀([豎竪])排版）$/)) {
-        para.classList.add('original-post')
-        para.innerHTML = `（<a href=${link}>原載</a>《一天世界》博客）`
+    const matches = para.innerHTML.trim().match(/(竖)排版）$|([豎竪])排版）$/)
+    const useSimplifiedChinese = matches && matches[1]  // Test if matched the first group (simplified Chinese)
+    if (!matches) {  // Create a new paragraph if no reference found
+      para = document.createElement("p")
+      article.appendChild(para)
     }
+    para.classList.add('original-post')
+    para.innerHTML = `（<a href=${link}>原${useSimplifiedChinese ? "载" : "載"}</a>《一天世界》博客）`
 
-    let article = document.body.querySelector('article')!
     let tategaki = new Tategaki(article, {
         imitatePcS: true,
         shouldAdjustOrphanLine: true
         // shouldRemoveStyle: true
-        // Browser detection is of no use in generating HTML 
+        // Browser detection is of no use in generating HTML
     }, document)
     tategaki.parse()
 

@@ -25,6 +25,7 @@ export const generateMetadata = async ({ params }: {
 
   return {
     title: `${title === '' ? '' : title + ' – '}一天世界`,
+    description,
     openGraph: {
       title,
       description,
@@ -32,9 +33,9 @@ export const generateMetadata = async ({ params }: {
       siteName: "一天世界",
       images: [
         {
-          url: "https://secure.gravatar.com/blavatar/3dd84179782d9f57210943aa1bf5064e?s=200",
-          width: 200,
-          height: 200,
+          url: "/media/og.png",
+          width: 1200,
+          height: 630,
         },
       ],
       locale: "zh_HK",
@@ -45,7 +46,7 @@ export const generateMetadata = async ({ params }: {
       description,
       card: "summary",
       images: {
-        url: "https://secure.gravatar.com/blavatar/3dd84179782d9f57210943aa1bf5064e?s=240",
+        url: "/media/twitter.png",
       }
     }
   }

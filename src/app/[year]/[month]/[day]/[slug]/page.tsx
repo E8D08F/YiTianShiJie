@@ -2,6 +2,7 @@ import { getAllPostIds, getPostData } from "@/app/posts"
 import type { Params } from "@/app/posts"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
+import { headers } from "next/headers"
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
@@ -22,8 +23,11 @@ export const generateMetadata = async ({ params }: {
   const postData = await getPostData(await params)
   if (!postData) notFound()
   const { title, description, link } = postData
+  const headersList = await headers()
+  const hostname = `${headersList.get('X-Forwarded-Proto')}://${headersList.get('X-Forwarded-Host')}`
 
   return {
+    metadataBase: hostname ? new URL(hostname) : undefined,
     title: `${title === '' ? '' : title + ' – '}一天世界`,
     description,
     openGraph: {

@@ -110,6 +110,11 @@ const getProcessedHTML = ({ link, title, author, content }: PostData) => {
     })
   })
 
+  // Add `text-center` class to paragraphs with `text-align: center`
+  Array.from(document.body.querySelectorAll('p'))
+    .filter(p => p.style.textAlign === 'center')
+    .forEach(p => p.classList.add("text-center"))
+
   const article = document.body.querySelector('article')!
   let para = paragraphs[paragraphs.length-1]
   const matches = para.innerHTML.trim().match(/(竖)排版）$|([豎竪])排版）$/)

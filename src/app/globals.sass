@@ -90,7 +90,8 @@ h1, h1 .cjk-punc, h1 .tcy, h1 .tcy-single, h1 .latin
   font-weight: 700
 
 p
-  &:not(:first-of-type):not(.original-post)
+  // `text-center` filter is set in `getProcessedHTML()` in `posts.ts`
+  &:not(:first-of-type):not(.original-post):not(.text-center)
     text-indent: 1rem
 
 blockquote

@@ -24,7 +24,7 @@
     "rss-parser": "^3.13.0",
     "sitemapper": "^3.2.20",
     "tar-fs": "^3.0.9",
-    "tategaki": "^1.4.3"
+    "tategaki": "^1.4.4"
   },
   "devDependencies": {
     "@types/html-to-text": "^8.1.1",
